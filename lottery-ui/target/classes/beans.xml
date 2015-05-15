@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+   <context:component-scan base-package="com.silanis.lottery.business.impl"/>
+   <bean id="drawConfig" class="com.silanis.lottery.common.dto.DrawConfig" >
+       <property name="numberOfTickets" value="5" />
+       <property name="potPercentage" value="50" />
+       <property name="raffler" ref="raffler" />
+       <property name="ballNumerator" ref="ballNumerator" />
+       <property name="ticketPrice" ref="ticketPriceMoney" />
+   </bean>
+
+   <bean id="ticketPriceMoney" class="com.silanis.lottery.common.dto.Money">
+       <constructor-arg name="currency" value="CAD"/>
+       <constructor-arg name="amount" value="10" />
+   </bean>
+   
+   <bean id="ballNumerator" class="com.silanis.lottery.business.numeration.RandomBallNumerator" />
+   <bean id="raffler" class="com.silanis.lottery.business.rafflers.BasicRaffler" />
+</beans>
